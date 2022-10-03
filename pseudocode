@@ -1,0 +1,44 @@
+# Input: string of brackets, Ex: "(){}[]"
+# Output: string, Ex: "is valid", "is not valid"
+
+public static string verify(string s)
+{
+    char[] chars = s.ToCharArray();
+    Stack st = new Stack();
+		char[] closingChars = s.ToCharArray(")}]");
+		var validation = "is valid";
+    
+    // if (chars[0] == ")" || chars[0] == "}" || chars[0] == "]")
+    //     return "is not valid";
+        
+    for (var i = 0; i < chars.Length; i++)
+    {
+      // if (chars[0]) 
+      //   st.Push(chars[i])
+			
+			if (closingChars.Contains(chars[i]))
+			{
+				if (Encoding.ASCII.GetBytes(chars[i]) == Encoding.ASCII.GetBytes(st.Peek()) + 1
+					or Encoding.ASCII.GetBytes(chars[i]) == Encoding.ASCII.GetBytes(st.Peek()) + 2)
+				{
+					st.Pop(); // Primeiro caso: st.Peek() == "(" e chars[i] == ")"
+				} else
+				{
+					validation = "is not valid";
+				}
+			} else 
+			{
+				st.Push(chars[i]);
+			}
+    }
+
+		if (st.Count() > 0)
+			validation = "is not valid"
+
+		return validation;
+}
+
+          ([{({{{([])}}})}])
+          {({(]
+					{(
+          {({()})}
